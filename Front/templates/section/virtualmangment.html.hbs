@@ -1,0 +1,60 @@
+<section id="virtualmangment" data-level="ADMIN">
+    <h1>virtual machine administration</h1>
+    <article class="itemsRow" data-geturl="/virtual_machine/all">
+        <span class="datalist" data-copy="false">
+            <article class="profile">
+                <img src="vm.png" alt="vm">
+                <h3 data-title></h3>
+                <ins data-state></ins>
+            </article>
+            <article class="boutonCadre">
+                <a href="#" data-seturl="/virtual_machine/on" data-title data-callback="actualise">ON</a>
+                <a href="#" data-seturl="/virtual_machine/off" data-title data-callback="actualise">OFF</a>
+                <a href="#" data-seturl="/virtual_machine/link" data-title data-callback="linkthis">View</a>
+                <a href="#" data-seturl="/virtual_machine/delete" data-title data-callback="kickme">Remove</a>
+            </article>
+            <article class="info">
+                <h2 data-create></h2>
+            </article>
+            <article class="info">
+                <h2>Present sur la machine:</h2>
+                <div data-geturlafter="/virtual_machine/user" data-title>
+                    <span data-copy="false">
+                    <h3 data-string ></h3>
+                    </span>
+                </div>
+            </article>
+            <article class="add">
+                <form name="add_vm_user" method="post" action="/virtual_machine/add_user" data-callback="actualise">
+                    <input type="email" name="email">
+                    <input type="hidden" data-title name="title">
+                    <button>add</button>
+                </form>
+            </article>
+            <article class="add">
+                <form name="rm_vm_user" method="post" action="/virtual_machine/remove_user" data-callback="actualise">
+                    <input type="email" name="email">
+                    <input type="hidden" data-title name="title">
+                    <button>remove</button>
+                </form>
+            </article>
+        </span>
+    </article>
+    <article>
+        <form name="add_vm" method="post" action="/virtual_machine/add" data-callback="actualise">
+            <fieldset class="">
+                <h2>Add virtual machine</h2>
+                <input type="text" title="name" name="name" autocomplete="off" autofocus placeholder="name">
+                <label for="select-os">Choose an os:</label>
+                <select name="os" id="select-os" data-list-os>
+                    <option value="">--Please choose an option--</option>
+                    <!--<option value="ubuntu" data-copy="false">Ubuntu</option>-->
+                    <option value="ubuntu">Ubuntu</option>
+                </select>
+            </fieldset>
+            <fieldset class="boutonCadre">
+                <input type="submit" value="add">
+            </fieldset>
+        </form>
+    </article>
+</section>

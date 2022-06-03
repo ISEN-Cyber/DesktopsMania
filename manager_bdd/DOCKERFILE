@@ -1,0 +1,9 @@
+FROM debian:bullseye-slim
+WORKDIR /usr/src/app
+RUN useradd --badname -M -s /bin/bash appuser\
+    && mkdir -p target/release && apt-get update && apt-get -y install libpq-dev ca-certificates
+    #apt-utils
+COPY target/release target/release
+COPY migrations migrations
+USER appuser
+CMD [ "target/release/manager_bdd" ]

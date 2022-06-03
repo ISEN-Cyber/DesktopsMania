@@ -1,0 +1,77 @@
+body>section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    margin-left: 30vw;
+    width: 70vw;
+    height: 100%;
+    overflow: hidden;
+    display: none;
+}
+
+/* Shadow on use */
+*[data-copy="false"] {
+    display: none !important;
+}
+
+/* Print info */
+body>#info
+{
+    margin-left: 0;
+    width:100%;
+}
+
+body[data-load]>#load {
+    display: block;
+    margin-left: 0;
+    width:100%;
+}
+
+body[data-alert="error"]>#info {
+    display: block;
+}
+
+body[data-alert="message"]>#info {
+    display: block;
+}
+
+body[data-alert="validation"]>#info {
+    display: block;
+}
+
+/* Switch page */
+body>#login:target {
+    display: block;
+    margin-left: 0;
+    width: 100vw;
+}
+body>#home:target {
+    display: block;
+}
+
+body>#navigation:target {
+    display: block;
+}
+
+body>#userland:target {
+    display: flex;
+    flex-direction: column;
+}
+
+body>#virtualmangment:target {
+    display: flex;
+    flex-direction: column;
+}
+
+body>#login:not(:target) ~ #left {
+    display: block;
+    margin-left: 0;
+    width: 30vw;
+}
+
+/* Authorisation view */
+body[data-level="USER"] *[data-level="ADMIN"] {
+    display: none;
+}

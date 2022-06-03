@@ -1,0 +1,13 @@
+FROM debian:bullseye-slim
+WORKDIR /usr/src/app
+RUN useradd --badname -M -s /bin/bash appuser\
+    && mkdir -p target/release && apt-get update && apt-get -y install libpq-dev 
+COPY target/release target/release
+COPY static static
+COPY templates templates
+COPY private/rsa_sha256_cert.pem private/rsa_sha256_cert.pem
+COPY private/rsa_sha256_key.pem private/rsa_sha256_key.pem
+USER appuser
+EXPOSE 8000
+
+CMD [ "target/release/final_version" ]

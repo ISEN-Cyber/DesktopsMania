@@ -1,0 +1,7 @@
+FROM debian:bullseye-slim
+WORKDIR /usr/src/app
+RUN useradd --badname -M -s /bin/bash appuser\
+    && mkdir -p target/release && apt-get update && apt-get -y install libpq-dev 
+COPY target/release target/release
+USER appuser
+CMD [ "target/release/testredirect" ]

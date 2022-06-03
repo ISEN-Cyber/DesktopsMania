@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redirect
+  labels:
+    app: redirect
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: redirect
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        app: redirect
+        tier: service
+    spec:
+      containers:
+      - name: redirect
+        image: "desktopmania/redirect:latest"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5901
+        env:
+        - name: DATABASE_URL
+          value: "postgresql://mania:mania@psql:5432/maniadb"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redirect
+  labels:
+    app: redirect
+    tier: service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5901
+  selector:
+    app: redirect
+

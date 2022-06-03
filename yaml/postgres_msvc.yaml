@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: psql
+  labels:
+    app: psql
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: psql
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        app: psql
+        tier: service
+    spec:
+      containers:
+      - name: psql
+        image: "postgres"
+        imagePullPolicy: Always
+        ports: 
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_PASSWORD
+          value: "mania"
+        - name: POSTGRES_USER
+          value: "mania"
+        - name: POSTGRES_DB
+          value: "maniadb"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: psql
+  labels:
+    app: psql
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5432
+    targetPort: 5432
+    name: postgresql
+  selector:
+          app: psql

@@ -1,0 +1,43 @@
+[package]
+name = "final_version"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies.diesel]
+version = "1.4.8"
+features = ["postgres"] 
+
+[dependencies.rocket]
+version = "0.5.0-rc.2"
+features = ["json","secrets","tls"]
+
+[dependencies.rocket_dyn_templates]
+version = "0.1.0-rc.1"
+default-features = false
+features = ["handlebars"]
+
+[dependencies.rocket_sync_db_pools]
+version = "0.1.0-rc.1"
+features = ["diesel_postgres_pool"]
+
+[dependencies.regex]
+version = "1.5.5"
+
+[dependencies.passwords]
+version="3.1.9"
+features = ["crypto"]
+
+[dependencies.rust-argon2]
+version = "1.0"
+
+[dependencies.google-authenticator]
+version = "0.3.0"
+features = ["with-qrcode"]
+
+[dependencies.num_cpus]
+version = "1.13.1"
+
+[dependencies.reqwest]
+version = "0.11.10"

@@ -1,0 +1,4 @@
+token: K10c2e7e192c9a07dc794d7f8d9fa1bbc10547ffa1236d3e2bdb4f32bf95da777b4::server:e0b2064586981c6422584b951ca70324
+server: https://10.10.20.20:9345
+tls-san:
+        - 10.10.20.20

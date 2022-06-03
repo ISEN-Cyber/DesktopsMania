@@ -1,0 +1,42 @@
+<section id="userland" data-level="ADMIN">
+    <h1>User administration</h1>
+    <article class="itemsRow" data-geturl="/user/all">
+        <span class="datalist" data-copy="false">
+            <article class="profile">
+                <img src="user.png" alt="default personnal img">
+                <h3><span data-first_name></span> <span data-last_name></span></h3>
+            </article>
+            <article class="boutonCadre">
+                <a href="#" data-seturl="/user/delete" data-email data-callback="kickme">Supression</a>
+                <a href="#" data-seturl="/user/remove" data-email>Reset</a>
+            </article>
+            <article class="info">
+                <h3>Informaton:</h3>
+                <h4>Email:<span data-email></span></h4>
+                <h4>Type:<span data-level></span></h4>
+                <h4>Date du dernier reset:<span data-lasttime></span></h4>
+                <h4>Temps de session:<span data-timesession></span></h4>
+                <h4>2fa actif:<span data-2fa></span></h4>
+            </article>
+            <article display="none" data-temporaire>
+                <h3>Compte temporaire:</h3>
+                <h4>Code:<span data-code></span></h4>
+                <h4>Temps depuis l'ajout:<span data-timetemp></span></h4>
+            </article>
+        </span>
+    </article>
+    <article>
+        <form name="add_user" method="post" action="user/add" data-callback="actualise">
+            <fieldset class="">
+                <h2>Add user</h2>
+                <input type="email" title="email" name="email" autocomplete="off" autofocus placeholder="email">
+                <input type="text" title="firstname" name="first_name" autocomplete="off" autofocus
+                    placeholder="firstname">
+                <input type="text" title="lastname" name="last_name" autocomplete="off" autofocus placeholder="lastname">
+            </fieldset>
+            <fieldset class="boutonCadre">
+                <input type="submit" value="add">
+            </fieldset>
+        </form>
+    </article>
+</section>

@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui
+  namespace: front
+  labels:
+    app: ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ui
+  template:
+    metadata:
+      labels:
+        app: ui
+    spec:
+      serviceAccountName: ui
+      containers:
+      - name: ui
+        image: "desktopmania/dashboard:latest"
+        # imagePullPolicy: Always
+        # ports:
+        # - containerPort: 8000
+        # livenessProbe:
+        #   httpGet:
+        #     path: /favicon.ico
+        #     port: 8000
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 5       
+        env:
+        - name: ROCKET_DATABASES
+          value: '{principal={url="postgresql://mania:mania@psql:5432/maniadb"}}'
+        - name: SECRET_KEY
+          value: 'BkLCPvMf8iK3DiT1O1yOsfLdC/iEmiKTpZc2D1lmalk='
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ui
+  name: ui
+  namespace: front
+spec:
+  ports:
+  - port: 443
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: ui
+  type: LoadBalancer
+

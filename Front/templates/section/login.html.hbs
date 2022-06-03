@@ -1,0 +1,18 @@
+<section id="login" data-level="NONE">
+    <article>
+        <form name="login" method="post" action="user/connect" data-callback="setuser">
+            <fieldset class="basicForm">
+                <h2>Login</h2>
+                <input type="text" title="enter your email" name="email" autocomplete="off" autofocus
+                    placeholder="email" value="">
+                <input type="password" title="enter your password" name="password" autocomplete="off" autofocus
+                    placeholder="password" minlength="8" maxlength="32" value="">
+                <input type="text" title="enter your personnal token" name="code" autocomplete="off" autofocus
+                    placeholder="token">
+            </fieldset>
+            <fieldset class="boutonCadre">
+                <input type="submit" value="Connect">
+            </fieldset>
+        </form>
+    </article>
+</section>

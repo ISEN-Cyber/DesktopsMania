@@ -1,0 +1,61 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: principal
+
+  vnc:
+    image: consol/centos-xfce-vnc
+    restart: always
+
+  novnc:
+    image: desktopmania/novnc
+    depends_on:
+      - redirect
+    restart: always
+    ports:
+      - 6080:6080
+    environment:
+      VNC_DEST: redirect:5901
+
+  redirect:
+    depends_on:
+      - db
+    image: desktopmania/redirect
+    restart: always
+    ports:
+      - 5901:5901
+    environment:
+      DATABASE_URL: postgresql://user:password@db:5432/principal
+
+  managerbdd:
+    depends_on:
+      - db
+    image: desktopmania/managerbdd
+    restart: always
+    environment:
+      EMAIL: email@admin.com
+      EMAIL_PASS: password
+      SMTP_SERV: smtp.serv.com
+      ROOT_CERT: np
+      DATABASE_URL: postgresql://user:password@db:5432/principal
+      USERS: '[{"email":"oui@oui.com","first_name":"oui","last_name":"oui","password":"mdpmdpmdp","id_level":1}]'
+      ACTUALISATION: 20
+
+
+  dashboard:
+    depends_on:
+      - db
+    image: desktopmania/dashboard
+    restart: always
+    environment:
+      ROCKET_DATABASES: '{principal={url="postgresql://user:password@db:5432/principal"}}'
+      SECRET_KEY: BkLCPvMf8iK3DiT1O1yOsfLdC/iEmiKTpZc2D1lmalk=
+    ports:
+      - 8000:8000

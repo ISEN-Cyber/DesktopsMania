@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bddmanager
+  labels:
+    app: bddmanager
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: bddmanager
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        app: bddmanager
+        tier: service
+    spec:
+      containers:
+      - name: bddmanager
+        image: "desktopmania/managerbdd:latest"
+        imagePullPolicy: Always    
+        env:
+        - name: DATABASE_URL
+          value: "postgresql://mania:mania@psql:5432/maniadb"
+        - name: EMAIL
+          value: "desktop.mania.isen@gmail.com"
+        - name: EMAIL_PASS
+          value: "nothing"
+        - name: ROOT_CERT
+          value: "np"
+        - name: ACTUALISATION
+          value: "20"
+
